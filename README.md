@@ -2,22 +2,32 @@
 
 My [OpenTabletDriver](https://opentabletdriver.net/) preset for osu!, tuned for a **One by Wacom CTL-472** played **hovering** (pen above the surface) on a 1920x1080 240 Hz class monitor.
 
-## The preset
+## Current settings
 
+Generated from [`OpenTabletDriver/settings.json`](OpenTabletDriver/settings.json), my live config, every time I save in OpenTabletDriver.
+
+<!-- preset:start -->
 | Setting | Value |
-|---|---|
+| :-- | :-- |
 | Tablet | Wacom CTL-472 |
-| Output mode | Absolute |
-| Tablet area | 75 x 42.19 mm (16:9, matches the screen), rotated 180 |
-| Display area | one 1920x1080 monitor |
+| Output mode | Absolute Mode |
+| Tablet area | 65 x 36.5625 mm at (119.5, 18.2813), rotation 180 |
+| Display area | 1920 x 1080 px |
 
 Filters, in order:
 
-| Filter | Settings | Why |
-|---|---|---|
-| Kuuube's CHATTER EXTERMINATOR (SMOOTH) | strength 15 | Anti chatter. The CTL-472 has no hardware smoothing, so its raw signal jitters, and hovering is noisier than dragging. The author recommends 6 to 7 for dragging and 15 to 16 for hovering. |
-| Radial Follow Smoothing (tablet space) | outer radius 1 mm, coefficient 0.995 | Absorbs small hand tremor: the cursor stays put until the pen moves past the radius. |
-| Temporal Resampler | prediction 0.5, reverse EMA 1.0, maximize frequency on | The tablet reports 133 times a second; this interpolates between reports so the cursor moves on every frame of a high refresh monitor. Reverse EMA stays at 1.0 (off) because this tablet has no hardware smoothing to undo. |
+| Filter | Settings |
+| :-- | :-- |
+| Kuuube's CHATTER EXTERMINATOR (SMOOTH) | Chatter_Extermination_Strength 15 |
+| Radial Follow Smoothing (tablet space) | OuterRadius 1, InnerRadius 0, SmoothingCoefficient 0.995, SoftKneeScale 1, SmoothingLeakCoefficient 0 |
+| Temporal Resampler | frameShift 0.5, followRadius 0, latency 0, reverseSmoothing 1, extraFrames True, loggingEnabled False, Frequency 1000 |
+<!-- preset:end -->
+
+## Why these filters
+
+* **Kuuube's CHATTER EXTERMINATOR (SMOOTH):** anti chatter. The CTL-472 has no hardware smoothing, so its raw signal jitters, and hovering is noisier than dragging. The author recommends 6 to 7 for dragging and 15 to 16 for hovering.
+* **Radial Follow Smoothing (tablet space):** absorbs small hand tremor; the cursor stays put until the pen moves past the radius.
+* **Temporal Resampler:** the tablet reports 133 times a second; this interpolates between reports so the cursor moves on every frame of a high refresh monitor. Reverse EMA stays at 1.0 (off) because this tablet has no hardware smoothing to undo.
 
 ## Install
 
@@ -44,7 +54,7 @@ On Wayland, OpenTabletDriver recommends Artist mode, with the compositor pinning
 
 ## How this repo stays current
 
-On my machine `~/.config/OpenTabletDriver` is a symlink to this repo's `OpenTabletDriver/` folder, and git tracks only `settings.json` inside it. So the file here is my live config, not a copy. The link is on the folder, not the file, because OpenTabletDriver saves by deleting `settings.json` and creating a new one, which would replace a file symlink with a plain file.
+On my machine `~/.config/OpenTabletDriver` is a symlink to this repo's `OpenTabletDriver/` folder, and git tracks only `settings.json` inside it. So the file here is my live config, not a copy. A systemd path unit watches it: about 20 seconds after I save in OpenTabletDriver, a script regenerates the settings table above from the JSON, commits and pushes. The link is on the folder, not the file, because OpenTabletDriver saves by deleting `settings.json` and creating a new one, which would replace a file symlink with a plain file.
 
 ## License
 
