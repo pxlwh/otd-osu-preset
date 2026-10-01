@@ -25,7 +25,7 @@ Filters, in order:
    * [Kuuube's CHATTER EXTERMINATOR](https://github.com/Kuuuube/Kuuube-s-CHATTER-EXTERMINATOR)
    * [AbstractQbit's Radial Follow Smoothing](https://github.com/AbstractQbit/AbstractOTDPlugins)
    * [Temporal Resampler](https://github.com/shmkle/TemporalResampler) (manual install: put the DLL in a `TemporalResampler` folder under OpenTabletDriver's `Plugins`)
-2. Copy `presets/ctl472-osu.json` into OpenTabletDriver's `Presets` folder:
+2. Download [`OpenTabletDriver/settings.json`](OpenTabletDriver/settings.json), rename it to `ctl472-osu.json`, and put it in OpenTabletDriver's `Presets` folder (a preset and a settings file share one format):
    * Linux: `~/.config/OpenTabletDriver/Presets/`
    * Windows: `%localappdata%\OpenTabletDriver\Presets\`
 3. In the GUI, apply the preset, then **set the display area for your own monitor layout** (the saved one points at my middle screen), Apply and Save.
@@ -41,6 +41,10 @@ On a different tablet, copy the filter values by hand rather than loading the fi
 ## Linux notes
 
 On Wayland, OpenTabletDriver recommends Artist mode, with the compositor pinning the virtual tablet to a monitor (on Hyprland: `hl.device({ name = "opentabletdriver-virtual-artist-tablet", output = "DP-1" })`). This preset uses Absolute mode, which also works for osu!stable under [osu-winello](https://github.com/NelloKudo/osu-winello): it detects Absolute mode and enables Wine's absolute tablet workaround. In osu!stable, set "Confine mouse cursor" to Never, or the pen can freeze when a map starts under XWayland.
+
+## How this repo stays current
+
+On my machine `~/.config/OpenTabletDriver` is a symlink to this repo's `OpenTabletDriver/` folder, and git tracks only `settings.json` inside it. So the file here is my live config, not a copy. The link is on the folder, not the file, because OpenTabletDriver saves by deleting `settings.json` and creating a new one, which would replace a file symlink with a plain file.
 
 ## License
 

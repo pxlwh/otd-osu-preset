@@ -24,7 +24,7 @@
           "Settings": [
             {
               "Property": "Chatter_Extermination_Strength",
-              "Value": 3.0
+              "Value": 15.0
             }
           ],
           "Enable": true
@@ -89,7 +89,7 @@
               "Value": 0.0
             }
           ],
-          "Enable": false
+          "Enable": true
         },
         {
           "Path": "tablet_calibration.tablet_calibration_stretch_tablet",
@@ -225,10 +225,10 @@
           "Rotation": 0.0
         },
         "Tablet": {
-          "Width": 45.0,
-          "Height": 25.3125,
-          "X": 129.5,
-          "Y": 12.656252,
+          "Width": 75.0,
+          "Height": 42.1875,
+          "X": 114.5,
+          "Y": 21.093754,
           "Rotation": 180.0
         },
         "EnableClipping": false,
